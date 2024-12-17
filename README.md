@@ -100,9 +100,8 @@ ansible-playbook -i ansible/inventory/hosts ansible/playbook.yml
 ![rsa](https://github.com/user-attachments/assets/bb1ef1f0-160c-4762-aed9-d4c118a2f064)
 
 - Успешное выполение playbook`а и запуска всех ролей
-![rsa](https://github.com/user-attachments/assets/70c9fab9-8391-44c4-8a0d-a262c017572a)
 
-
+![playbook](https://github.com/user-attachments/assets/321dc82d-3748-4457-80ab-20ad095e58ee)
 
    
    
