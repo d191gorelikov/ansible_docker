@@ -1,0 +1,20 @@
+- name: Load all vars from vars directory
+  include_vars:
+    dir: vars
+    extensions: ['yml']
+
+- name: Combine all users into a single list
+  set_fact:
+    users: "{{ users | default([]) + lookup('vars', item, default=[]) }}"
+  loop: "{{ query('varnames', '^users_') }}"
+  when:
+    - lookup('vars', item, default=[]) is iterable
+
+- name: Debug combined users
+  debug:
+    var: users      
+
+- include_tasks: groups.yml
+- include_tasks: users.yml
+- include_tasks: ssh.yml
+

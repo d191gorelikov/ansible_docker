@@ -1,0 +1,11 @@
+- name: Configure static server
+  hosts: dockerserver
+  become: true
+  roles:
+    - apt      
+    - usermanager
+    - zsh
+    - ssh
+    - nginx
+    - static  
+

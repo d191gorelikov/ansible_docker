@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  static-server:
+    build: ./
+    ports:
+      - "2222:22" #пробрасываем порты
+      - "80:80"
+    restart: always

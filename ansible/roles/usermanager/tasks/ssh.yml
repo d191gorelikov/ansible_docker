@@ -1,0 +1,20 @@
+- name: Check&Create directory .ssh
+  file:
+    path: "/home/{{ item.name }}/.ssh"
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0700
+  loop: "{{ users }}"
+  when: item.ssh_key is defined and item.state == "present" #Выполняется только если у пользователя указан публичный ключ, и если пользователь создан
+
+- name: Set keys for users
+  copy:
+    content: "{{ item.ssh_key }}"
+    dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0600
+  loop: "{{ users }}"
+  when: item.ssh_key is defined and item.state == "present"  #Выполняется только если у пользователя указан публичный ключ, и если пользователь создан
+

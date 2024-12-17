@@ -1,0 +1,11 @@
+- name: Users_Manager
+  user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell | default('/bin/bash') }}" #если оболочка не указана, то по дефолту будет оболочка bash
+    state: "{{ item.state }}"
+    groups: "{{ item.groups | default([]) | join(',') }}" # join добавлен по причине преобразования списка группа для работы этого модуля user
+    password: "{{ item.password | default(omit) | password_hash('sha512') }}" #если пароль не указан, то пароль не создается
+    create_home: true
+  loop: "{{ users }}"
+  when: users is defined # пропуск задачи, если переменная users в vars не будет определена
+

@@ -1,0 +1,31 @@
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create root directory for static files
+  file:
+    path: "{{ nginx_root }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+  become: true
+
+- name: Upload Nginx virtual host configuration
+  template:
+    src: nginx_vhost.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Reload Nginx
+  become: true
+
+
+- name: Start Nginx if not running
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  
+

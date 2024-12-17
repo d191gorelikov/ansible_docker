@@ -1,0 +1,8 @@
+packages_to_install:
+  - htop
+  - ncdu
+  - git
+  - nano
+  - curl
+  - unzip
+  - vim

@@ -1,0 +1,6 @@
+nginx_log_dir: /var/log/nginx
+nginx_root: /var/www/images/
+vhost_server_name: localhost
+gzip_types: "text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml"
+cache_expiration: "1h"
+

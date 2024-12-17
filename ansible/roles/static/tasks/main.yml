@@ -1,0 +1,49 @@
+- name: Ensure static root directory exists
+  file:
+    path: "{{ static_root }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+  become: true
+
+- name: Download and unpack static files
+  block:
+    - name: Download static files archive
+      command: >
+        curl -L -o /tmp/static_files.zip "{{ static_archive_url }}"
+      args:
+        creates: /tmp/static_files.zip
+      become: true
+
+    - name: Unpack static files into static root
+      unarchive:
+        src: /tmp/static_files.zip
+        dest: "{{ static_root }}"
+        remote_src: yes
+      become: true
+
+    - name: Set ownership and permissions for static files
+      file:
+        path: "{{ static_root }}"
+        state: directory
+        recurse: yes
+        owner: www-data
+        group: www-data
+        mode: '0755'
+      become: true
+
+  rescue:
+    - name: Clean up temporary archive after failure
+      file:
+        path: /tmp/static_files.zip
+        state: absent
+      become: true
+
+  always:
+    - name: Ensure temporary archive is removed
+      file:
+        path: /tmp/static_files.zip
+        state: absent
+      become: true
+

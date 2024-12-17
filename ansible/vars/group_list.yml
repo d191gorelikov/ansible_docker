@@ -1,0 +1,7 @@
+group_list:
+  - "sudo"
+  - "developers"
+  - "admins"
+  - "testers"
+  - "users"
+

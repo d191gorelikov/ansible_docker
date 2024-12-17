@@ -1,0 +1,6 @@
+- name: Manage user groups
+  group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ group_list | default([]) }}"
+

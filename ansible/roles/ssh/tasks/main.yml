@@ -1,0 +1,18 @@
+- name: Configure SSH settings
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  loop:
+    - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
+    - { regexp: '^PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }
+    - { regexp: '^LogLevel', line: 'LogLevel VERBOSE' }
+    - { regexp: '^X11Forwarding', line: 'X11Forwarding no' }
+  notify:
+    - Validate SSH configuration
+    - Reload SSH daemon
+  become: true
+
+
+

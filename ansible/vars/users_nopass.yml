@@ -1,0 +1,8 @@
+users_nopass:  
+  - name: "nopassuser"
+    shell: "/bin/bash"
+    state: "present"
+    ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAp+nopassusersshkeyexample..."
+    groups:
+      - "users"
+

@@ -1,0 +1,34 @@
+server {
+    listen 80;
+    server_name {{ vhost_server_name }};
+
+    # Логи
+    access_log {{ nginx_log_dir }}/access.log;
+    error_log {{ nginx_log_dir }}/error.log;
+
+    # Редирект с /images на /images/
+    location = /images {
+        return 301 /images/;
+    }
+
+    # Раздача содержимого директории /images/
+    location /images/ {
+        autoindex on;  # Включает отображение списка файлов
+        alias {{ nginx_root }};  # Указывает путь к директории с изображениями
+
+        # Включение Gzip для статики
+        gzip on;
+        gzip_types {{ gzip_types }};
+        gzip_min_length 1024;
+
+        # Кэширование файлов
+        expires {{ cache_expiration }};
+        add_header Cache-Control "public";
+    }
+
+    # Возвращаем 404 для всех остальных путей
+    location / {
+        return 404;
+    }
+}
+

@@ -1,0 +1,40 @@
+    - name: Install Zsh
+      apt:
+        name: zsh
+        state: present
+        update_cache: true
+
+    - name: Temporarily open home directory for Oh My Zsh installation
+      file:
+        path: "/home/{{ item.name }}"
+        mode: '0755'
+      loop: "{{ users }}"
+      when: item.shell == '/bin/zsh' and item.state == 'present'
+
+    - name: Install Oh My Zsh under each user's home directory
+      shell: |
+        curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o /tmp/ohmyzsh_install.sh
+        sh /tmp/ohmyzsh_install.sh --unattended --no-modify-path
+      args:
+        creates: "/home/{{ item.name }}/.oh-my-zsh"
+      environment:
+        HOME: "/home/{{ item.name }}"
+        TMPDIR: "/tmp"
+      loop: "{{ users }}"
+      when: item.shell == '/bin/zsh' and item.state == 'present'
+
+    - name: Fix ownership for Oh My Zsh installation
+      file:
+        path: "/home/{{ item.name }}/.oh-my-zsh"
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+        recurse: true
+      loop: "{{ users }}"
+      when: item.shell == '/bin/zsh' and item.state == 'present'
+
+    - name: Reset home directory permissions to 0700
+      file:
+        path: "/home/{{ item.name }}"
+        mode: '0700'
+      loop: "{{ users }}"
+      when: item.shell == '/bin/zsh' and item.state == 'present'

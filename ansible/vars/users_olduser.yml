@@ -1,0 +1,5 @@
+users_old:
+  - name: "olduser"
+    shell: "/bin/bash"
+    state: "absent" # Удаление пользователя
+

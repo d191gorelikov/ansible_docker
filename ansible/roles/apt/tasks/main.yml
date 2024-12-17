@@ -1,0 +1,15 @@
+- name: Update package list
+  apt:
+    update_cache: yes
+  become: true
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+  become: true
+
+- name: Install additional utilities
+  apt:
+    name: "{{ packages_to_install }}"
+    state: present
+  become: true
