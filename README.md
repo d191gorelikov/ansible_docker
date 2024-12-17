@@ -97,13 +97,13 @@
 Перейти в каталог docker и выполните команду:
 ```bash
 docker-compose up -d
-```bash
+
 
 ### Шаг 3: Запуск плейбука Ansible
 Выполните команду для применения всех ролей:
 ```bash
 ansible-playbook -i ansible/inventory/hosts ansible/playbook.yml
-```bash
+
 
 
 ## Конфигурация пользователей
@@ -123,10 +123,9 @@ ansible-playbook -i ansible/inventory/hosts ansible/playbook.yml
    Пример команды:
    ```bash
    ssh -i ~/.ssh/id_rsa -p 2222 admin@127.0.0.1
-   ```bash
    
 ## Скриншоты
-Скришоты для подтверждения удачного запуска проекта и демонстрации работы
+Скриншоты для подтверждения удачного запуска проекта и демонстрации работы
    
    
    
