@@ -16,45 +16,7 @@
 
 ## Структура проекта
 
-├── ansible/                   # Каталог для Ansible-плейбуков и ролей
-│   ├── playbook.yml           # Основной Ansible-плейбук
-│   ├── inventory/             # Инвентори
-│   │   ├── hosts              # Инвентори основной
-│   │   └── hosts.yaml.old     # Архивный файл инвентори (формат yaml)
-│   ├── roles/                 # Роли для Ansible
-│   │   ├── apt/               # Роль для обновления и установки пакетов
-│   │   │   ├── tasks/main.yml # Задачи для apt
-│   │   │   └── defaults/main.yml
-│   │   ├── nginx/             # Роль для установки и настройки Nginx
-│   │   │   ├── tasks/main.yml # Задачи для Nginx
-│   │   │   ├── handlers/main.yml # Обработчики
-│   │   │   └── templates/nginx_vhost.conf.j2 # Jinja-шаблон
-│   │   ├── ssh/               # Роль для конфигурации SSH
-│   │   │   ├── tasks/main.yml # Задачи для SSH
-│   │   │   └── handlers/main.yml # Обработчики
-│   │   ├── static/            # Роль для развертывания статических файлов
-│   │   │   ├── tasks/main.yml # Задачи для статических файлов
-│   │   │   └── defaults/main.yml
-│   │   ├── usermanager/       # Роль для управления пользователями
-│   │   │   ├── tasks/main.yml # Основные задачи
-│   │   │   ├── tasks/users.yml # Создание пользователей
-│   │   │   ├── tasks/groups.yml # Управление группами
-│   │   │   └── tasks/ssh.yml  # Управление SSH-ключами
-│   │   ├── zsh/               # Роль для установки Zsh и Oh My Zsh
-│   │   │   └── tasks/main.yml # Задачи для установки Zsh
-│   └── vars/                  # Переменные для Ansible
-│       ├── group_list.yml     # Список групп
-│       ├── users_admin.yml    # Администраторские пользователи
-│       ├── users_developer.yml # Пользователи-разработчики
-│       ├── users_nopass.yml   # Пользователи без паролей
-│       ├── users_olduser.yml  # Устаревшие пользователи
-│       └── users_tester.yml   # Пользователи-тестеры
-│
-├── docker/                    # Каталог с Docker 
-   ├── Dockerfile             # Dockerfile для создания образа
-   ├── docker-compose.yml     # Композиция для запуска сервисов
-   └── authorized_keys        # Авторизованные SSH-ключи для пользователей
-
+![image](https://github.com/user-attachments/assets/b4d8757f-33bf-4099-8b9b-6a2e50b9f31b)
 
 
 # Основные роли Ansible
@@ -97,13 +59,13 @@
 Перейти в каталог docker и выполните команду:
 ```bash
 docker-compose up -d
-
+```
 
 ### Шаг 3: Запуск плейбука Ansible
 Выполните команду для применения всех ролей:
 ```bash
 ansible-playbook -i ansible/inventory/hosts ansible/playbook.yml
-
+```
 
 
 ## Конфигурация пользователей
@@ -123,12 +85,24 @@ ansible-playbook -i ansible/inventory/hosts ansible/playbook.yml
    Пример команды:
    ```bash
    ssh -i ~/.ssh/id_rsa -p 2222 admin@127.0.0.1
+   ```
    
 ## Скриншоты
-Скриншоты для подтверждения удачного запуска проекта и демонстрации работы
-   
-   
-   
+Скриншоты для подтверждения удачного запуска проекта и демонстрации работы проекта:
+- Успешная сборка образа
+   ![build](https://github.com/user-attachments/assets/4f6ec67c-e384-45f1-9fd3-b229acbab151)
+
+- Успешный запуск Docker-composw   
+![compose](https://github.com/user-attachments/assets/24ef5a44-da8f-487d-8a8a-30493d2ee240)
+
+- Подключение к контейнеру с помощью закрытого ключа
+  
+![rsa](https://github.com/user-attachments/assets/bb1ef1f0-160c-4762-aed9-d4c118a2f064)
+
+- Успешное выполение playbook`а и запуска всех ролей
+![rsa](https://github.com/user-attachments/assets/70c9fab9-8391-44c4-8a0d-a262c017572a)
+
+
 
    
    
